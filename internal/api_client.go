@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/DotNetAge/appstore/pkg/internal/models"
+	"github.com/DotNetAge/appstore/internal/models"
 	"github.com/golang-jwt/jwt/v5"
 )
 

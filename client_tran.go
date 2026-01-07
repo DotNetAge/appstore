@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/DotNetAge/appstore/pkg/internal"
-	"github.com/DotNetAge/appstore/pkg/internal/models"
+	"github.com/DotNetAge/appstore/internal"
+	"github.com/DotNetAge/appstore/internal/models"
 )
 
 // TransactionHistoryOption defines the option type for GetTransactionHistory

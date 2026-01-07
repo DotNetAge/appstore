@@ -3,7 +3,7 @@ package pkg
 import (
 	"context"
 
-	"github.com/DotNetAge/appstore/pkg/internal/models"
+	"github.com/DotNetAge/appstore/internal/models"
 )
 
 // ExtendRenewalDateForAllActiveSubscribers uses a subscription's product identifier to extend the renewal date for all of its eligible active subscribers.
