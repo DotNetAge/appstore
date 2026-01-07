@@ -1,0 +1,10 @@
+.trae
+.idea
+.DS_Store
+.vscode
+python
+vendor
+dist
+dist-ssr
+*.local
+/dist*
