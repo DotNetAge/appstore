@@ -179,3 +179,11 @@ func (c *AppStoreServerClient) SendConsumptionData(transactionID string, request
 	// 构建统一的响应格式
 	return nil
 }
+
+func (c *AppStoreServerClient) GetTransaction(response *ResponseBodyV2) (*models.JWSTransactionDecodedPayload, error) {
+	playload, err := c.verifier.VerifyAndDecodeSignedTransaction(response.SignedPayload)
+	if err != nil {
+		return nil, fmt.Errorf("failed to verify and decode transaction: %w", err)
+	}
+	return playload, nil
+}
