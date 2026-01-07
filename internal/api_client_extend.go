@@ -1,11 +1,11 @@
-package appstoreserver
+package internal
 
 import (
 	"context"
 	"fmt"
 	"net/url"
 
-	"github.com/apple/app-store-server-library-go/pkg/appstoreserver/models"
+	"github.com/DotNetAge/appstore/pkg/internal/models"
 )
 
 // ExtendRenewalDateForAllActiveSubscribers uses a subscription's product identifier to extend the renewal date for all of its eligible active subscribers.
@@ -34,14 +34,14 @@ func (c *AppStoreServerAPIClient) ExtendSubscriptionRenewalDate(ctx context.Cont
 func (c *AppStoreServerAPIClient) GetAllSubscriptionStatuses(ctx context.Context, transactionID string, status []models.Status) (*models.StatusResponse, error) {
 	var response models.StatusResponse
 	path := "/inApps/v1/subscriptions/" + transactionID
-	
+
 	queryParams := url.Values{}
 	if len(status) > 0 {
 		for _, s := range status {
 			queryParams.Add("status", fmt.Sprintf("%d", s))
 		}
 	}
-	
+
 	if err := c.makeRequest(ctx, path, "GET", queryParams, nil, &response); err != nil {
 		return nil, err
 	}
@@ -53,12 +53,12 @@ func (c *AppStoreServerAPIClient) GetAllSubscriptionStatuses(ctx context.Context
 func (c *AppStoreServerAPIClient) GetRefundHistory(ctx context.Context, transactionID string, revision string) (*models.RefundHistoryResponse, error) {
 	var response models.RefundHistoryResponse
 	path := "/inApps/v2/refund/lookup/" + transactionID
-	
+
 	queryParams := url.Values{}
 	if revision != "" {
 		queryParams.Add("revision", revision)
 	}
-	
+
 	if err := c.makeRequest(ctx, path, "GET", queryParams, nil, &response); err != nil {
 		return nil, err
 	}
@@ -70,7 +70,7 @@ func (c *AppStoreServerAPIClient) GetRefundHistory(ctx context.Context, transact
 func (c *AppStoreServerAPIClient) GetStatusOfSubscriptionRenewalDateExtensions(ctx context.Context, requestIdentifier string, productID string) (*models.MassExtendRenewalDateStatusResponse, error) {
 	var response models.MassExtendRenewalDateStatusResponse
 	path := "/inApps/v1/subscriptions/extend/mass/" + productID + "/" + requestIdentifier
-	
+
 	if err := c.makeRequest(ctx, path, "GET", url.Values{}, nil, &response); err != nil {
 		return nil, err
 	}

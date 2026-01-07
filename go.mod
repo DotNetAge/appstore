@@ -1,4 +1,4 @@
-module github.com/apple/app-store-server-library-go
+module github.com/DotNetAge/appstore
 
 go 1.25.1
 

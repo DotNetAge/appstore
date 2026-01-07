@@ -1,13 +1,11 @@
-// Copyright (c) 2023 Apple Inc. Licensed under MIT License.
-
-package appstoreserver
+package internal
 
 import (
 	"context"
 	"fmt"
 	"net/url"
 
-	"github.com/apple/app-store-server-library-go/pkg/appstoreserver/models"
+	"github.com/DotNetAge/appstore/internal/models"
 )
 
 // GetTransactionHistory gets a customer's in-app purchase transaction history for your app.
@@ -15,12 +13,12 @@ import (
 func (c *AppStoreServerAPIClient) GetTransactionHistory(ctx context.Context, transactionID string, revision string, request *models.TransactionHistoryRequest, version GetTransactionHistoryVersion) (*models.HistoryResponse, error) {
 	var response models.HistoryResponse
 	path := "/inApps/" + string(version) + "/history/" + transactionID
-	
+
 	queryParams := url.Values{}
 	if revision != "" {
 		queryParams.Add("revision", revision)
 	}
-	
+
 	if request != nil {
 		if request.StartDate != nil {
 			queryParams.Add("startDate", fmt.Sprintf("%d", *request.StartDate))
@@ -53,7 +51,7 @@ func (c *AppStoreServerAPIClient) GetTransactionHistory(ctx context.Context, tra
 			queryParams.Add("revoked", fmt.Sprintf("%t", *request.Revoked))
 		}
 	}
-	
+
 	if err := c.makeRequest(ctx, path, "GET", queryParams, nil, &response); err != nil {
 		return nil, err
 	}

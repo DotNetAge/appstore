@@ -1,6 +1,4 @@
-// Copyright (c) 2023 Apple Inc. Licensed under MIT License.
-
-package appstoreserver
+package internal
 
 import (
 	"crypto"
@@ -12,8 +10,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/DotNetAge/appstore/internal/models"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/apple/app-store-server-library-go/pkg/appstoreserver/models"
 )
 
 // VerificationStatus represents the status of a verification operation
@@ -52,10 +50,10 @@ func (e *VerificationException) Error() string {
 
 // SignedDataVerifier provides methods for verifying and decoding App Store signed data
 type SignedDataVerifier struct {
-	chainVerifier    *chainVerifier
-	environment      models.Environment
-	bundleID         string
-	appAppleID       *int64
+	chainVerifier      *chainVerifier
+	environment        models.Environment
+	bundleID           string
+	appAppleID         *int64
 	enableOnlineChecks bool
 }
 
@@ -71,10 +69,10 @@ func NewSignedDataVerifier(rootCertificates [][]byte, enableOnlineChecks bool, e
 	}
 
 	return &SignedDataVerifier{
-		chainVerifier:    chainVerifier,
-		environment:      environment,
-		bundleID:         bundleID,
-		appAppleID:       appAppleID,
+		chainVerifier:      chainVerifier,
+		environment:        environment,
+		bundleID:           bundleID,
+		appAppleID:         appAppleID,
 		enableOnlineChecks: enableOnlineChecks,
 	}, nil
 }
@@ -367,7 +365,7 @@ func (v *SignedDataVerifier) decodeSignedObject(signedObj string) ([]byte, error
 
 // chainVerifier handles certificate chain verification
 type chainVerifier struct {
-	r               []*x509.Certificate
+	r                  []*x509.Certificate
 	enableStrictChecks bool
 }
 
@@ -394,7 +392,7 @@ func newChainVerifier(rootCertificates [][]byte) (*chainVerifier, error) {
 	}
 
 	return &chainVerifier{
-		r:               r,
+		r:                  r,
 		enableStrictChecks: true,
 	}, nil
 }

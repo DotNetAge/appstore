@@ -1,6 +1,4 @@
-// Copyright (c) 2023 Apple Inc. Licensed under MIT License.
-
-package appstoreserver
+package internal
 
 import (
 	"crypto/ecdsa"

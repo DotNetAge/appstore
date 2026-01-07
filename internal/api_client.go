@@ -1,7 +1,4 @@
-// Copyright (c) 2023 Apple Inc. Licensed under MIT License.
-
-// Package appstoreserver provides the App Store Server Library for Go
-package appstoreserver
+package internal
 
 import (
 	"bytes"
@@ -13,8 +10,8 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/DotNetAge/appstore/pkg/internal/models"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/apple/app-store-server-library-go/pkg/appstoreserver/models"
 )
 
 // GetTransactionHistoryVersion represents the version of the Get Transaction History endpoint to use
@@ -29,11 +26,11 @@ const (
 
 // BaseAppStoreServerAPIClient represents the base API client for the App Store Server API
 type BaseAppStoreServerAPIClient struct {
-	baseURL    string
-	signingKey []byte
-	keyID      string
-	issuerID   string
-	bundleID   string
+	baseURL     string
+	signingKey  []byte
+	keyID       string
+	issuerID    string
+	bundleID    string
 	environment models.Environment
 }
 
@@ -51,11 +48,11 @@ func NewBaseAppStoreServerAPIClient(signingKey []byte, keyID, issuerID, bundleID
 	}
 
 	return &BaseAppStoreServerAPIClient{
-		baseURL:    baseURL,
-		signingKey: signingKey,
-		keyID:      keyID,
-		issuerID:   issuerID,
-		bundleID:   bundleID,
+		baseURL:     baseURL,
+		signingKey:  signingKey,
+		keyID:       keyID,
+		issuerID:    issuerID,
+		bundleID:    bundleID,
 		environment: environment,
 	}, nil
 }
@@ -78,7 +75,7 @@ func (c *BaseAppStoreServerAPIClient) generateToken() (string, error) {
 
 	// Create the token
 	token := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
-	
+
 	// Set the kid header
 	token.Header["kid"] = c.keyID
 
@@ -104,7 +101,7 @@ func (c *BaseAppStoreServerAPIClient) getHeaders() (map[string]string, error) {
 	}
 
 	return map[string]string{
-		"User-Agent":    "app-store-server-library/go/1.5.0",
+		"User-Agent":    "github.com/DotNetAge/appstore",
 		"Authorization": "Bearer " + token,
 		"Accept":        "application/json",
 	}, nil

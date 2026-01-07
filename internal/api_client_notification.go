@@ -1,12 +1,10 @@
-// Copyright (c) 2023 Apple Inc. Licensed under MIT License.
-
-package appstoreserver
+package internal
 
 import (
 	"context"
 	"net/url"
 
-	"github.com/apple/app-store-server-library-go/pkg/appstoreserver/models"
+	"github.com/DotNetAge/appstore/internal/models"
 )
 
 // GetTestNotificationStatus checks the status of the test App Store server notification sent to your server.
@@ -25,12 +23,12 @@ func (c *AppStoreServerAPIClient) GetTestNotificationStatus(ctx context.Context,
 func (c *AppStoreServerAPIClient) GetNotificationHistory(ctx context.Context, paginationToken string, request *models.NotificationHistoryRequest) (*models.NotificationHistoryResponse, error) {
 	var response models.NotificationHistoryResponse
 	path := "/inApps/v1/notifications/history"
-	
+
 	queryParams := url.Values{}
 	if paginationToken != "" {
 		queryParams.Add("paginationToken", paginationToken)
 	}
-	
+
 	if err := c.makeRequest(ctx, path, "POST", queryParams, request, &response); err != nil {
 		return nil, err
 	}
