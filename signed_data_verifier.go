@@ -1,4 +1,4 @@
-package internal
+package appstore
 
 import (
 	"crypto"
@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/DotNetAge/appstore/internal/models"
+	"github.com/DotNetAge/appstore/models"
 	"github.com/golang-jwt/jwt/v5"
 )
 

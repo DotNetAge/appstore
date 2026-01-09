@@ -1,17 +1,16 @@
-package pkg
+package appstore
 
 import (
 	"fmt"
 	"os"
 	"path/filepath"
 
-	"github.com/DotNetAge/appstore/internal"
-	"github.com/DotNetAge/appstore/internal/models"
+	"github.com/DotNetAge/appstore/models"
 )
 
 type AppStoreServerClient struct {
-	client   *internal.AppStoreServerAPIClient
-	verifier *internal.SignedDataVerifier
+	client   *AppStoreServerAPIClient
+	verifier *SignedDataVerifier
 }
 
 func NewAppStoreServerClient(
@@ -20,7 +19,7 @@ func NewAppStoreServerClient(
 	rootCertPath string,
 	environment models.Environment) *AppStoreServerClient {
 
-	baseClient, err := internal.NewAppStoreServerAPIClient(
+	baseClient, err := NewAppStoreServerAPIClient(
 		signingKey,
 		keyID,
 		issuerID,
@@ -37,7 +36,7 @@ func NewAppStoreServerClient(
 	}
 
 	// 初始化验证器
-	verifier, err := internal.NewSignedDataVerifier(rootCerts, false, environment, bundleID, &appID)
+	verifier, err := NewSignedDataVerifier(rootCerts, false, environment, bundleID, &appID)
 	if err != nil {
 		panic(fmt.Sprintf("failed to create signed data verifier: %v", err))
 	}

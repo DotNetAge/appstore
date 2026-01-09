@@ -1,4 +1,4 @@
-package internal
+package appstore
 
 import (
 	"crypto/ecdsa"

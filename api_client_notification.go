@@ -1,10 +1,10 @@
-package internal
+package appstore
 
 import (
 	"context"
 	"net/url"
 
-	"github.com/DotNetAge/appstore/internal/models"
+	"github.com/DotNetAge/appstore/models"
 )
 
 // GetTestNotificationStatus checks the status of the test App Store server notification sent to your server.

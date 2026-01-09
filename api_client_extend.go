@@ -1,11 +1,11 @@
-package internal
+package appstore
 
 import (
 	"context"
 	"fmt"
 	"net/url"
 
-	"github.com/DotNetAge/appstore/internal/models"
+	"github.com/DotNetAge/appstore/models"
 )
 
 // ExtendRenewalDateForAllActiveSubscribers uses a subscription's product identifier to extend the renewal date for all of its eligible active subscribers.

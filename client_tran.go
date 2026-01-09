@@ -1,12 +1,11 @@
-package pkg
+package appstore
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	"github.com/DotNetAge/appstore/internal"
-	"github.com/DotNetAge/appstore/internal/models"
+	"github.com/DotNetAge/appstore/models"
 )
 
 // TransactionHistoryOption defines the option type for GetTransactionHistory
@@ -15,7 +14,7 @@ type TransactionHistoryOption func(*transactionHistoryOptions)
 // transactionHistoryOptions holds the options for GetTransactionHistory
 type transactionHistoryOptions struct {
 	revision                     string
-	version                      internal.GetTransactionHistoryVersion
+	version                      GetTransactionHistoryVersion
 	startDate                    int64
 	endDate                      int64
 	productIds                   []string
@@ -81,7 +80,7 @@ func WithEndDate(endDate time.Time) TransactionHistoryOption {
 }
 
 // WithVersion sets the version parameter
-func WithVersion(version internal.GetTransactionHistoryVersion) TransactionHistoryOption {
+func WithVersion(version GetTransactionHistoryVersion) TransactionHistoryOption {
 	return func(opts *transactionHistoryOptions) {
 		opts.version = version
 	}
@@ -91,7 +90,7 @@ func WithVersion(version internal.GetTransactionHistoryVersion) TransactionHisto
 func (c *AppStoreServerClient) GetTransactionHistory(transactionID string, options ...TransactionHistoryOption) ([]*models.JWSTransactionDecodedPayload, error) {
 	// Set default options
 	opts := &transactionHistoryOptions{
-		version: internal.GetTransactionHistoryVersionV1,
+		version: GetTransactionHistoryVersionV1,
 	}
 
 	// Apply options
